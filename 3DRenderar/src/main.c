@@ -1,11 +1,16 @@
 #include </opt/homebrew/Cellar/sdl2/2.30.2/include/SDL2/SDL.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <time.h>
 
 bool is_running = false;
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
+int window_width = 800;
+int window_height = 600;
+
+uint32_t *color_buffer = NULL;
 
 bool initialize_window(void) {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -16,7 +21,7 @@ bool initialize_window(void) {
   // Create a SDL window
   window =
       SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                       800, 600, SDL_WINDOW_BORDERLESS);
+                       window_width, window_height, SDL_WINDOW_BORDERLESS);
 
   if (!window) {
     fprintf(stderr, "Error Creating SDL window!");
@@ -34,7 +39,10 @@ bool initialize_window(void) {
 }
 
 void setup() {
+
   // TODO:
+  color_buffer =
+      (uint32_t *)malloc(sizeof(uint32_t) * window_width * window_height);
 }
 
 void process_input() {
@@ -64,6 +72,13 @@ void render() {
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
   SDL_RenderClear(renderer);
   SDL_RenderPresent(renderer);
+  SDL_Quit();
+}
+
+void destroy_window() {
+  free(color_buffer);
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
 }
 
 int main(void) {
@@ -79,6 +94,8 @@ int main(void) {
     update();
     render();
   }
+
+  destroy_window();
 
   return 0;
 }
