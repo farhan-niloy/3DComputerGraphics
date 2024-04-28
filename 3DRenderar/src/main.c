@@ -11,6 +11,7 @@ int window_width = 800;
 int window_height = 600;
 
 uint32_t *color_buffer = NULL;
+SDL_Texture *color_buffer_texture = NULL;
 
 bool initialize_window(void) {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -40,9 +41,15 @@ bool initialize_window(void) {
 
 void setup() {
 
-  // TODO:
+  // Allocate the required memory in the bytes to hold the coor buffer
+
   color_buffer =
       (uint32_t *)malloc(sizeof(uint32_t) * window_width * window_height);
+
+  // Creating a SDL texture that is used to display the color buffer
+  color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
+                                           SDL_TEXTUREACCESS_STREAMING,
+                                           window_width, window_height);
 }
 
 void process_input() {
@@ -63,14 +70,30 @@ void process_input() {
   }
 }
 
-void update() {
-  // TODO:
+void render_color_buffer() {
+  SDL_UpdateTexture(color_buffer_texture, NULL, color_buffer,
+                    (window_width * sizeof(uint32_t)));
+  SDL_RenderCopy(renderer, color_buffer_texture, NULL, NULL);
 }
 
+void cleear_color_buffer(uint32_t color) {
+  for (int y = 0; y < window_height; y++) {
+    for (int x = 0; x < window_width; x++) {
+      color_buffer[(window_width * y) + x] = color;
+    }
+  }
+}
+
+void update() {}
+
 void render() {
-  // TODO:
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
   SDL_RenderClear(renderer);
+
+  render_color_buffer();
+
+  cleear_color_buffer(0xFFFFFF00);
+
   SDL_RenderPresent(renderer);
   SDL_Quit();
 }
