@@ -43,13 +43,14 @@ bool initialize_window(void) {
     fprintf(stderr, "Error creating SDL renderer.\n");
   }
 
+  SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+
   return true;
 }
 
 void setup() {
 
   // Allocate the required memory in the bytes to hold the coor buffer
-
   color_buffer =
       (uint32_t *)malloc(sizeof(uint32_t) * window_width * window_height);
 
@@ -60,20 +61,17 @@ void setup() {
 }
 
 void process_input() {
-  // TODO:
-
   SDL_Event event;
-  SDL_PollEvent(&event);
-
-  switch (event.type) {
-  case SDL_QUIT:
-    is_running = false;
-    break;
-
-  case SDL_KEYDOWN:
-    if (event.key.keysym.sym == SDLK_ESCAPE)
+  while (SDL_PollEvent(&event)) {
+    switch (event.type) {
+    case SDL_QUIT:
       is_running = false;
-    break;
+      break;
+    case SDL_KEYDOWN:
+      if (event.key.keysym.sym == SDLK_ESCAPE)
+        is_running = false;
+      break;
+    }
   }
 }
 
@@ -91,18 +89,29 @@ void cleear_color_buffer(uint32_t color) {
   }
 }
 
+void grid_color(uint32_t color) {
+  for (int y = 0; y < window_height; y++) {
+    for (int x = 0; x < window_width; x++) {
+      if (x % 10 == 0 || y % 10 == 0) {
+        color_buffer[(window_width * y) + x] = color;
+      }
+    }
+  }
+}
+
 void update() {}
 
 void render() {
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
   SDL_RenderClear(renderer);
 
+  grid_color(0xFF808080);
+
   render_color_buffer();
 
-  cleear_color_buffer(0xFFFFFF00);
+  cleear_color_buffer(0xFF000000);
 
   SDL_RenderPresent(renderer);
-  SDL_Quit();
 }
 
 void destroy_window() {
