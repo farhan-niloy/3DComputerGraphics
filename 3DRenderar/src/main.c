@@ -84,17 +84,37 @@ void render_color_buffer() {
 void cleear_color_buffer(uint32_t color) {
   for (int y = 0; y < window_height; y++) {
     for (int x = 0; x < window_width; x++) {
-      color_buffer[(window_width * y) + x] = color;
+      color_buffer[(window_width * y) + (x + 10)] = color;
     }
   }
 }
 
+void draw_rect(int x, int y, int width, int height, uint32_t color) {
+  for (int i = 0; i < width; i++) {
+    for (int j = 0; j < height; j++) {
+      int current_x = x + i;
+      int current_y = y + j;
+      color_buffer[(window_width * current_y) + current_x] = color;
+    }
+  }
+}
+
+void draw_pent(int x, int y, int line, uint32_t color) {
+  for (int i = 0; i < line; i++) {
+    for (int j = 0; j < line; j++) {
+      int pos_x = x + i;
+      int d = y + j;
+      color_buffer[(window_width * pos_x) + d] = color;
+    }
+    y++;
+    line--;
+  }
+}
+
 void grid_color(uint32_t color) {
-  for (int y = 0; y < window_height; y++) {
-    for (int x = 0; x < window_width; x++) {
-      if (x % 10 == 0 || y % 10 == 0) {
-        color_buffer[(window_width * y) + x] = color;
-      }
+  for (int y = 0; y < window_height; y += 40) {
+    for (int x = 0; x < window_width; x += 40) {
+      color_buffer[window_width * y + x] = color;
     }
   }
 }
@@ -105,11 +125,14 @@ void render() {
   SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
   SDL_RenderClear(renderer);
 
-  grid_color(0xFF808080);
-
   render_color_buffer();
 
   cleear_color_buffer(0xFF000000);
+
+  // grid_color(0xFF808080);
+
+  draw_rect(400, 250, 300, 150, 0xFFFF0000);
+  draw_pent(window_width / 2, window_height / 2, 200, 0xFFFFFFFF);
 
   SDL_RenderPresent(renderer);
 }
