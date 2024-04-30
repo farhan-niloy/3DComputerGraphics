@@ -60,7 +60,9 @@ void cleear_color_buffer(uint32_t color) {
 }
 
 void draw_pix(int x, int y, uint32_t color) {
-  color_buffer[(window_width * y) + x] = color;
+  if (x >= 0 && x < window_width && y >= 0 && y < window_height) {
+    color_buffer[(window_width * y) + x] = color;
+  }
 }
 
 void draw_rect(int x, int y, int width, int height, uint32_t color) {
@@ -68,7 +70,8 @@ void draw_rect(int x, int y, int width, int height, uint32_t color) {
     for (int j = 0; j < height; j++) {
       int current_x = x + i;
       int current_y = y + j;
-      color_buffer[(window_width * current_y) + current_x] = color;
+      // color_buffer[(window_width * current_y) + current_x] = color;
+      draw_pix(current_x, current_y, color);
     }
   }
 }
@@ -85,7 +88,7 @@ void draw_pent(int x, int y, int line, uint32_t color) {
   }
 }
 
-void grid_color(uint32_t color) {
+void draw_grid(uint32_t color) {
   for (int y = 0; y < window_height; y += 40) {
     for (int x = 0; x < window_width; x += 40) {
       color_buffer[window_width * y + x] = color;

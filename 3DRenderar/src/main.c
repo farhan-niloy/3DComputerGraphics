@@ -3,7 +3,10 @@
 #include <stdbool.h>
 
 // Declare an array of vectors/points
-vec3_t cube_points[9 * 9 * 9];
+#define N_POINTS 9 * 9 * 9
+
+vec3_t cube_points[N_POINTS];
+vec2_t projected_points[N_POINTS];
 
 void setup() {
 
@@ -24,7 +27,7 @@ void setup() {
     for (float y = -1; y <= 1; y += 0.25) {
       for (float z = -1; z <= 1; z += 0.25) {
         vec3_t new_point = {.x = x, .y = y, .z = z};
-        cube_points[point_count] = new_point;
+        cube_points[point_count++] = new_point;
       }
     }
   }
@@ -45,18 +48,36 @@ void process_input() {
   }
 }
 
-void update() {}
+// Function that recieves a 3d vector and returns a projected 2d
+vec2_t project(vec3_t point) {
+  vec2_t projected_point = {.x = point.x, .y = point.y};
+  return projected_point;
+}
+
+void update() {
+  for (int i = 0; i < N_POINTS; i++) {
+    vec3_t point = cube_points[i];
+
+    // Project Current Point
+    vec2_t projected_point = project(point);
+
+    // Save the projected 2D vector in the array of projected points
+    projected_points[i] = projected_point;
+  }
+}
 
 void render() {
-  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-  SDL_RenderClear(renderer);
+  draw_grid(0xFF808080);
+
+  for (int i = 0; i < N_POINTS; i++) {
+    vec2_t projected_point = projected_points[i];
+    draw_rect(projected_point.x, projected_point.y, 4, 4, 0xFFFF0000);
+  }
 
   render_color_buffer();
 
   cleear_color_buffer(0xFF000000);
 
-  // grid_color(0xFF808080);
-  draw_pix(20, 20, 0xFFFF0000);
   draw_rect(400, 250, 300, 150, 0xFFFF0000);
   draw_pent(window_width / 2, window_height / 2, 200, 0xFFFFFFFF);
 
@@ -68,8 +89,6 @@ int main(void) {
   is_running = initialize_window();
 
   setup();
-
-  vec3_t myvector = {2.0, 3.0, -4.0};
 
   while (is_running) {
     process_input();
