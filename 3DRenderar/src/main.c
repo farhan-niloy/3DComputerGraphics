@@ -25,9 +25,9 @@ void setup() {
 
   // Start loading my array of vectors
   // From -1 to +1 (in this 9x9x9 cube)
-  for (float x = -1; x <= 1; x += 0.25) {
-    for (float y = -1; y <= 1; y += 0.25) {
-      for (float z = -1; z <= 1; z += 0.25) {
+  for (float x = -1; x <= 1; x += 0.5) {
+    for (float y = -1; y <= 1; y += 0.5) {
+      for (float z = -1; z <= 1; z += 0.5) {
         vec3_t new_point = {.x = x, .y = y, .z = z};
         cube_points[point_count++] = new_point;
       }
