@@ -39,7 +39,7 @@ void render() {
   cleear_color_buffer(0xFF000000);
 
   // grid_color(0xFF808080);
-
+  draw_pix(20, 20, 0xFFFF0000);
   draw_rect(400, 250, 300, 150, 0xFFFF0000);
   draw_pent(window_width / 2, window_height / 2, 200, 0xFFFFFFFF);
 
