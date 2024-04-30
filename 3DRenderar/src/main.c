@@ -2,6 +2,9 @@
 #include "vector.h"
 #include <stdbool.h>
 
+// Declare an array of vectors/points
+vec3_t cube_points[9 * 9 * 9];
+
 void setup() {
 
   // Allocate the required memory in the bytes to hold the coor buffer
@@ -12,6 +15,19 @@ void setup() {
   color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                            SDL_TEXTUREACCESS_STREAMING,
                                            window_width, window_height);
+
+  int point_count = 0;
+
+  // Start loading my array of vectors
+  // From -1 to +1 (in this 9x9x9 cube)
+  for (float x = -1; x <= 1; x += 0.25) {
+    for (float y = -1; y <= 1; y += 0.25) {
+      for (float z = -1; z <= 1; z += 0.25) {
+        vec3_t new_point = {.x = x, .y = y, .z = z};
+        cube_points[point_count] = new_point;
+      }
+    }
+  }
 }
 
 void process_input() {
