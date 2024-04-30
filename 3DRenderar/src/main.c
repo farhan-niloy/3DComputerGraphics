@@ -8,6 +8,8 @@
 vec3_t cube_points[N_POINTS];
 vec2_t projected_points[N_POINTS];
 
+float fov_factor = 128;
+
 void setup() {
 
   // Allocate the required memory in the bytes to hold the coor buffer
@@ -50,7 +52,8 @@ void process_input() {
 
 // Function that recieves a 3d vector and returns a projected 2d
 vec2_t project(vec3_t point) {
-  vec2_t projected_point = {.x = point.x, .y = point.y};
+  vec2_t projected_point = {.x = (fov_factor * point.x),
+                            .y = (fov_factor * point.y)};
   return projected_point;
 }
 
@@ -71,7 +74,15 @@ void render() {
 
   for (int i = 0; i < N_POINTS; i++) {
     vec2_t projected_point = projected_points[i];
-    draw_rect(projected_point.x, projected_point.y, 4, 4, 0xFFFF0000);
+    draw_rect((projected_point.x / fov_factor * 40) + 200,
+              (projected_point.y / fov_factor * 40) + 500, 40, 40, 0xFFFFFF00);
+  }
+
+  for (int i = 0; i < N_POINTS; i++) {
+    vec2_t projected_point = projected_points[i];
+    draw_rect(projected_point.x + ((float)window_width / 2 + 200),
+              projected_point.y + ((float)window_height / 2 + 40), 4, 4,
+              0xFFFFFF00);
   }
 
   render_color_buffer();
