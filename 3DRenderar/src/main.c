@@ -1,6 +1,7 @@
 #include "display.h"
 #include "vector.h"
 #include <stdbool.h>
+#include <strings.h>
 
 // Declare an array of vectors/points
 #define N_POINTS 9 * 9 * 9
