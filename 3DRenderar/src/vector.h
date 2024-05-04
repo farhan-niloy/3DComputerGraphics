@@ -12,6 +12,8 @@ typedef struct {
   float z;
 } vec3_t;
 
-// TODO: Add functions to mainupulate vectors 2D and 3D
+vec3_t vec3_rodate_x(vec3_t v, float angle);
+vec3_t vec3_rodate_y(vec3_t v, float angle);
+vec3_t vec3_rodate_z(vec3_t v, float angle);
 
 #endif

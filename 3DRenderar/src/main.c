@@ -11,6 +11,8 @@ vec2_t projected_points[N_POINTS];
 float fov_factor = 640;
 vec3_t camera_position = {.x = 0, .y = 0, .z = -5};
 
+vec3_t cube_rotation = {.x = 0, .y = 0, .z = 0};
+
 void setup() {
 
   // Allocate the required memory in the bytes to hold the coor buffer
@@ -59,6 +61,8 @@ vec2_t project(vec3_t point) {
 }
 
 void update() {
+
+  cube_rotation.y += 0.1;
   for (int i = 0; i < N_POINTS; i++) {
     vec3_t point = cube_points[i];
 
