@@ -11,6 +11,8 @@ float fov_factor = 640.0f;
 vec3_t camera_position = {.x = 0.0f, .y = 0.0f, .z = -5.0f};
 vec3_t cube_rotation = {.x = 0.0f, .y = 0.0f, .z = 0.0f};
 
+int previous_frame_time = 0;
+
 void setup() {
   color_buffer =
       (uint32_t *)malloc(sizeof(uint32_t) * window_width * window_height);
@@ -53,9 +55,16 @@ vec2_t project(vec3_t point) {
 }
 
 void update() {
-  cube_rotation.x += 0.001f;
-  cube_rotation.z += 0.001f;
-  cube_rotation.x += 0.001f;
+
+  while (!SDL_TICKS_PASSED(SDL_GetTicks(),
+                           previous_frame_time + FRAME_TARGET_TIME))
+    ;
+
+  previous_frame_time = SDL_GetTicks();
+
+  cube_rotation.x += 0.01f;
+  cube_rotation.z += 0.01f;
+  cube_rotation.x += 0.01f;
 
   for (int i = 0; i < N_POINTS; i++) {
     vec3_t point = cube_points[i];
