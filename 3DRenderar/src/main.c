@@ -4,6 +4,13 @@
 #include <stdlib.h>
 
 #define N_POINTS (9 * 9 * 9)
+#define N_MESH_VERTICES 8
+vec3_t mesh_vertices[N_MESH_VERTICES] = {
+    {.x = -1, .y = -1, .z = -1}, {.x = -1, .y = 1, .z = -1},
+    {.x = 1, .y = 1, .z = -1},   {.x = 1, .y = -1, .z = -1},
+    {.x = 1, .y = 1, .z = 1},    {.x = 1, .y = -1, .z = 1},
+    {.x = -1, .y = 1, .z = 1},   {.x = -1, .y = -1, .z = 1},
+};
 
 vec3_t cube_points[N_POINTS];
 vec2_t projected_points[N_POINTS];
