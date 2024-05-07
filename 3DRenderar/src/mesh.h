@@ -1,15 +1,14 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include "triangle.h"
 #include "vector.h"
 
 #define N_MESH_VERTICES 8
 
-vec3_t mesh_vertices[N_MESH_VERTICES] = {
-    {.x = -1, .y = -1, .z = -1}, {.x = -1, .y = 1, .z = -1},
-    {.x = 1, .y = 1, .z = -1},   {.x = 1, .y = -1, .z = -1},
-    {.x = 1, .y = 1, .z = 1},    {.x = 1, .y = -1, .z = 1},
-    {.x = -1, .y = 1, .z = 1},   {.x = -1, .y = -1, .z = 1},
-};
+extern vec3_t mesh_vertices[N_MESH_VERTICES];
+
+#define N_MESH_FACES (6 * 2)
+extern face_t mesh_faces[N_MESH_FACES];
 
 #endif
