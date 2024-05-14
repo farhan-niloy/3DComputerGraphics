@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define FPS 60
+#define FPS 120
 #define FRAME_TARGET_TIME (1000 / FPS)
 
 extern bool is_running;
