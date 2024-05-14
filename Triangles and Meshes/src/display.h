@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define FPS 30
+#define FPS 60
 #define FRAME_TARGET_TIME (1000 / FPS)
 
 extern bool is_running;
@@ -27,5 +27,7 @@ void draw_grid(uint32_t color);
 void draw_pent(int x, int y, int line, uint32_t color);
 void destroy_window();
 void draw_line(int x0, int y0, int x1, int y1, uint32_t color);
+void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2,
+                   uint32_t color);
 
 #endif
