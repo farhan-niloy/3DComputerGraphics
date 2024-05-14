@@ -26,5 +26,6 @@ void draw_rect(int x, int y, int width, int height, uint32_t color);
 void draw_grid(uint32_t color);
 void draw_pent(int x, int y, int line, uint32_t color);
 void destroy_window();
+void draw_line(int x0, int y0, int x1, int y1, uint32_t color);
 
 #endif
