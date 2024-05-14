@@ -108,8 +108,7 @@ void render() {
 
   draw_line(100, 200, 300, 50, 0xFF00FF00);
   draw_line(300, 50, 600, 800, 0xFF00FF00);
-  draw_line(100, 200, 300, 50, 0xFF00FF00);
-  draw_line(100, 200, 300, 50, 0xFF00FF00);
+  draw_line(800, 800, 100, 700, 0xFF00FF00);
 
   draw_grid(0xFFFFFF00);
 
