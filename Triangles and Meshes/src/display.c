@@ -124,7 +124,6 @@ void draw_line(int x0, int y0, int x1, int y1, uint32_t color) {
 }
 
 void destroy_window() {
-  free(color_buffer);
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 }
