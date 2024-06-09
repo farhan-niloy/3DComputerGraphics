@@ -1,6 +1,7 @@
 #include "mesh.h"
 #include "array.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 mesh_t mesh = {.vertices = NULL, .faces = NULL, .rotation = {0, 0, 0}};
 
@@ -12,13 +13,24 @@ vec3_t cube_vertices[N_CUBE_VERTICES] = {
 };
 
 face_t cube_faces[N_CUBE_FACES] = {
-    // front - right - back -left -top - bottom
-    {.a = 1, .b = 2, .c = 3}, {.a = 6, .b = 7, .c = 8},
-    {.a = 1, .b = 3, .c = 4}, {.a = 8, .b = 7, .c = 2},
-    {.a = 4, .b = 3, .c = 5}, {.a = 8, .b = 2, .c = 1},
-    {.a = 4, .b = 5, .c = 6}, {.a = 2, .b = 7, .c = 5},
-    {.a = 6, .b = 5, .c = 7}, {.a = 2, .b = 5, .c = 3},
-    {.a = 6, .b = 8, .c = 1}, {.a = 6, .b = 1, .c = 4},
+    // front
+    {.a = 0, .b = 1, .c = 2},
+    {.a = 0, .b = 2, .c = 3},
+    // right
+    {.a = 3, .b = 2, .c = 4},
+    {.a = 3, .b = 4, .c = 5},
+    // back
+    {.a = 5, .b = 4, .c = 6},
+    {.a = 5, .b = 6, .c = 7},
+    // left
+    {.a = 7, .b = 6, .c = 1},
+    {.a = 7, .b = 1, .c = 0},
+    // top
+    {.a = 1, .b = 6, .c = 4},
+    {.a = 1, .b = 4, .c = 2},
+    // bottom
+    {.a = 7, .b = 0, .c = 3},
+    {.a = 7, .b = 3, .c = 5},
 };
 
 void load_cube_mesh_data(void) {
@@ -33,6 +45,16 @@ void load_cube_mesh_data(void) {
 }
 
 void load_obj_file_data(char *filename) {
-  FILE *file;
-  file = fopen(filename, "r");
+  FILE *file = fopen(filename, "r");
+  if (!file) {
+    perror("Failed to open file");
+    return;
+  }
+
+  char line[1024];
+  while (fgets(line, sizeof(line), file)) {
+    printf("Line: %s", line);
+  }
+
+  fclose(file);
 }
