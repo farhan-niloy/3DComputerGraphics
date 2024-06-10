@@ -44,17 +44,13 @@ void load_cube_mesh_data(void) {
   }
 }
 
-void load_obj_file_data(const char *filename) {
-  FILE *file = fopen(filename, "r");
-  if (!file) {
-    perror("Failed to open file");
-    return;
-  }
+void load_obj_file_data(char *filename) {
+  FILE *file;
+  file = fopen(filename, "r");
 
   char line[1024];
-  while (fgets(line, sizeof(line), file)) {
-    printf("Line: %s", line);
-  }
 
-  fclose(file);
+  while (fgets(line, 1024, file)) {
+    printf("LINE=%s", line);
+  }
 }
