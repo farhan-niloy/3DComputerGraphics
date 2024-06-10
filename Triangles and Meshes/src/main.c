@@ -3,6 +3,7 @@
 #include "mesh.h"
 #include "triangle.h"
 #include "vector.h"
+#include <_ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -22,7 +23,7 @@ void setup() {
   color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                            SDL_TEXTUREACCESS_STREAMING,
                                            window_width, window_height);
-  load_obj_file_data("../assets/31-skull_obj/Skull_obj/Tengkorak_obj.obj");
+  load_obj_file_data("../assets/rifle_new.obj");
 }
 
 void process_input() {
@@ -138,6 +139,13 @@ int main(void) {
   is_running = initialize_window();
 
   setup();
+
+  /* while (is_running) {
+     process_input();
+     update();
+     render();
+   }
+   */
 
   destroy_window();
 
