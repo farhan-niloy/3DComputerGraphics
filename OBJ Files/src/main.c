@@ -11,8 +11,8 @@
 
 triangle_t *triangles_to_render = NULL;
 
-float fov_factor = 300.0f;
-vec3_t camera_position = {.x = 0.0f, .y = 0.0f, .z = -80.0f};
+float fov_factor = 800.0f;
+vec3_t camera_position = {.x = 0.0f, .y = 0.0f, .z = -20.0f};
 
 int previous_frame_time = 0;
 
@@ -23,7 +23,7 @@ void setup() {
   color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                            SDL_TEXTUREACCESS_STREAMING,
                                            window_width, window_height);
-  char *filename = "f22.obj";
+  char *filename = "uploads_files_2720101_BusGameMap.obj";
   load_obj_file_data(filename);
 }
 
