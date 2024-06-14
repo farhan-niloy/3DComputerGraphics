@@ -67,7 +67,7 @@ void update() {
 
   // Loop all triangle faces
   int num_faces = array_length(mesh.faces);
-  for (int i = 0; i < N_CUBE_FACES; i++) {
+  for (int i = 0; i < num_faces; i++) {
     face_t mesh_face = mesh.faces[i];
 
     vec3_t face_vertices[3];
