@@ -11,8 +11,8 @@
 
 triangle_t *triangles_to_render = NULL;
 
-float fov_factor = 640.0f;
-vec3_t camera_position = {.x = 0.0f, .y = 0.0f, .z = -5.0f};
+float fov_factor = 300.0f;
+vec3_t camera_position = {.x = 0.0f, .y = 0.0f, .z = -80.0f};
 
 int previous_frame_time = 0;
 
@@ -23,7 +23,7 @@ void setup() {
   color_buffer_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                                            SDL_TEXTUREACCESS_STREAMING,
                                            window_width, window_height);
-  char *filename = "cube.obj";
+  char *filename = "f22.obj";
   load_obj_file_data(filename);
 }
 
@@ -61,7 +61,7 @@ void update() {
   // initialize the array of triangles to render
   triangles_to_render = NULL;
 
-  mesh.rotation.x += 0.01f;
+  mesh.rotation.y += 0.01f;
   mesh.rotation.z += 0.01f;
   mesh.rotation.x += 0.01f;
 
