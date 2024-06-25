@@ -1,7 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include </opt/homebrew/Cellar/sdl2/2.30.2/include/SDL2/SDL.h>
+#include </opt/homebrew/Cellar/sdl2/2.30.4/include/SDL2/SDL.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
