@@ -25,6 +25,12 @@ void setup() {
                                            window_width, window_height);
   char *filename = "f22.obj";
   load_obj_file_data(filename);
+
+  vec3_t a = {2.5, 6.4, 3.0};
+  vec3_t b = {-2.2, 1.4, -1.0};
+
+  // float array_length = vec3_length(a);
+  // float brray_length = vec3_length(b);
 }
 
 void process_input() {
